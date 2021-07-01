@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Kiler.Bus\Kiler.Bus\Kiler.Bus.csproj" />
+    <PackageReference Include="Kiler.Bus" Version="1.0.3.31" />
   </ItemGroup>
 
 </Project>
