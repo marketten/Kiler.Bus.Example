@@ -40,6 +40,10 @@ namespace Kiler.Bus.Example
             this.txtServerAddress = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.rtbData = new System.Windows.Forms.RichTextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.btnUpdateSingle = new System.Windows.Forms.Button();
+            this.btnDisableAll = new System.Windows.Forms.Button();
+            this.btnUpdateAllProduct = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -92,6 +96,10 @@ namespace Kiler.Bus.Example
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnUpdateAllProduct);
+            this.groupBox1.Controls.Add(this.btnDisableAll);
+            this.groupBox1.Controls.Add(this.btnUpdateSingle);
+            this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.Controls.Add(this.txtPassword);
             this.groupBox1.Controls.Add(this.txtUsername);
             this.groupBox1.Controls.Add(this.nudServerPort);
@@ -159,6 +167,44 @@ namespace Kiler.Bus.Example
             this.rtbData.TabIndex = 0;
             this.rtbData.Text = "";
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(7, 66);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.PlaceholderText = "Region Erp Id";
+            this.textBox1.Size = new System.Drawing.Size(155, 23);
+            this.textBox1.TabIndex = 4;
+            // 
+            // btnUpdateSingle
+            // 
+            this.btnUpdateSingle.Location = new System.Drawing.Point(168, 66);
+            this.btnUpdateSingle.Name = "btnUpdateSingle";
+            this.btnUpdateSingle.Size = new System.Drawing.Size(135, 23);
+            this.btnUpdateSingle.TabIndex = 5;
+            this.btnUpdateSingle.Text = "Update Single Product";
+            this.btnUpdateSingle.UseVisualStyleBackColor = true;
+            this.btnUpdateSingle.Click += new System.EventHandler(this.btnUpdateSingle_Click);
+            // 
+            // btnDisableAll
+            // 
+            this.btnDisableAll.Location = new System.Drawing.Point(309, 65);
+            this.btnDisableAll.Name = "btnDisableAll";
+            this.btnDisableAll.Size = new System.Drawing.Size(135, 23);
+            this.btnDisableAll.TabIndex = 6;
+            this.btnDisableAll.Text = "Disable All Product";
+            this.btnDisableAll.UseVisualStyleBackColor = true;
+            this.btnDisableAll.Click += new System.EventHandler(this.btnDisableAll_Click);
+            // 
+            // btnUpdateAllProduct
+            // 
+            this.btnUpdateAllProduct.Location = new System.Drawing.Point(450, 65);
+            this.btnUpdateAllProduct.Name = "btnUpdateAllProduct";
+            this.btnUpdateAllProduct.Size = new System.Drawing.Size(135, 23);
+            this.btnUpdateAllProduct.TabIndex = 7;
+            this.btnUpdateAllProduct.Text = "Update All Product";
+            this.btnUpdateAllProduct.UseVisualStyleBackColor = true;
+            this.btnUpdateAllProduct.Click += new System.EventHandler(this.btnUpdateAllProduct_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -193,6 +239,10 @@ namespace Kiler.Bus.Example
         private System.Windows.Forms.RichTextBox rtbData;
         private System.Windows.Forms.ComboBox cbEventType;
         private System.Windows.Forms.Button btnStart;
+        private System.Windows.Forms.Button btnUpdateAllProduct;
+        private System.Windows.Forms.Button btnDisableAll;
+        private System.Windows.Forms.Button btnUpdateSingle;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 

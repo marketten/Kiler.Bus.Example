@@ -1,6 +1,8 @@
 ﻿using Kiler.Bus.Models.Configuration;
+using Kiler.Bus.Models.EventModels;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -63,22 +65,15 @@ namespace Kiler.Bus.Example
 
         private void StartEvent()
         {
-            ConfigRabbitMq config = new ConfigRabbitMq();
-            config.HostAddres = txtServerAddress.Text;
-            config.Port = (int)nudServerPort.Value;
-            config.IsUsage = true;
-            config.Password = txtPassword.Text;
-            config.Username = txtUsername.Text;
-            config.Prefix = "akyurt";
             try
             {
-                busService = new BusService(config);
+                busService = new BusService(GenerateConfig());
                 busService.OnConnectionStateChanged += BusService_OnConnectionStateChanged;
                 if (cbEventType.SelectedIndex == 0)
                 {
                     busService.OnOrderCreated += Service_OnOrderCreated;
                 }
-                else if(cbEventType.SelectedIndex == 1)
+                else if (cbEventType.SelectedIndex == 1)
                 {
                     busService.OnNewLog += BusService_OnNewLog;
                 }
@@ -140,5 +135,132 @@ namespace Kiler.Bus.Example
             btnStart.Text = isEnable ? "Start" : "Stop";
         }
 
+        private ConfigRabbitMq GenerateConfig()
+        {
+            ConfigRabbitMq config = new ConfigRabbitMq();
+            config.HostAddres = txtServerAddress.Text;
+            config.Port = (int)nudServerPort.Value;
+            config.IsUsage = true;
+            config.Password = txtPassword.Text;
+            config.Username = txtUsername.Text;
+            config.Prefix = "akyurt";
+            return config;
+        }
+
+        private void btnUpdateSingle_Click(object sender, EventArgs e)
+        {
+            BusService services = new BusService(GenerateConfig());
+            List<ProductContent> products = new List<ProductContent>();
+            products.Add(new ProductContent()
+            {
+                Active = true,
+                Barcode = Guid.NewGuid().ToString(),
+                Desi = new Random().Next(1, 15),
+                ErpId = "001212121",
+                InitialAmount = 1,
+                ListPrice = 1.3m,
+                MaxAmount = 15m,
+                MinAmount = 1m,
+                Name = "Test Product",
+                Price = 1.3m,
+                ProductUnit = 0,
+                QuantityStep = 1,
+                Vat = 12,
+            });
+            var result = services.UpdateCatalog(new Models.EventModels.CatalogContent()
+            {
+                FullSync = false,
+                Products = products,
+                RegionId = "800"
+            });
+            AppendText($"TotalItem Count: {result.TotalItemCount}", Color.Blue);
+            AppendText($"Inserted Count: {result.InsertedItemCount}", Color.Blue);
+            AppendText($"UpdatedItemCount: {result.UpdatedItemCount}", Color.Blue);
+            AppendText($"Message: {result.Message}", Color.Blue);
+            AppendText($"RemovedItemCount: {result.RemovedItemCount}", Color.Blue);
+        }
+
+        private void btnDisableAll_Click(object sender, EventArgs e)
+        {
+            Bus.BusService services = new BusService(GenerateConfig());
+            List<ProductContent> products = new List<ProductContent>();
+            var result = services.UpdateCatalog(new Models.EventModels.CatalogContent()
+            {
+                FullSync = true,
+                Products = products,
+                RegionId = "800"
+            });
+
+            AppendText($"TotalItem Count: {result.TotalItemCount}", Color.Blue);
+            AppendText($"Inserted Count: {result.InsertedItemCount}", Color.Blue);
+            AppendText($"UpdatedItemCount: {result.UpdatedItemCount}", Color.Blue);
+            AppendText($"Message: {result.Message}", Color.Blue);
+            AppendText($"RemovedItemCount: {result.RemovedItemCount}", Color.Blue);
+        }
+
+        private void btnUpdateAllProduct_Click(object sender, EventArgs e)
+        {
+            Bus.BusService services = new BusService(GenerateConfig());
+            List<ProductContent> products = new List<ProductContent>();
+            products.Add(new ProductContent()
+            {
+                Active = true,
+                Barcode = Guid.NewGuid().ToString(),
+                Desi = new Random().Next(1, 15),
+                ErpId = "001212121",
+                InitialAmount = 1,
+                ListPrice = 1.3m,
+                MaxAmount = 15m,
+                MinAmount = 1m,
+                Name = "Test Product",
+                Price = 1.3m,
+                ProductUnit = 0,
+                QuantityStep = 1,
+                Vat = 12,
+            });
+            products.Add(new ProductContent()
+            {
+                Active = true,
+                Barcode = Guid.NewGuid().ToString(),
+                Desi = new Random().Next(1, 15),
+                ErpId = "001212122",
+                InitialAmount = 1,
+                ListPrice = 1.3m,
+                MaxAmount = 15m,
+                MinAmount = 1m,
+                Name = "Test Product 2",
+                Price = 1.3m,
+                ProductUnit = 0,
+                QuantityStep = 1,
+                Vat = 12,
+            });
+            products.Add(new ProductContent()
+            {
+                Active = true,
+                Barcode = Guid.NewGuid().ToString(),
+                Desi = new Random().Next(1, 15),
+                ErpId = "001212123",
+                InitialAmount = 1,
+                ListPrice = 1.2m,
+                MaxAmount = 15m,
+                MinAmount = 1m,
+                Name = "Test Product 3",
+                Price = 1.3m,
+                ProductUnit = 0,
+                QuantityStep = 1,
+                Vat = 12,
+            });
+            var result = services.UpdateCatalog(new Models.EventModels.CatalogContent()
+            {
+                FullSync = true,
+                Products = products,
+                RegionId = "800"
+            });
+            AppendText($"TotalItem Count: {result.TotalItemCount}", Color.Blue);
+            AppendText($"Inserted Count: {result.InsertedItemCount}", Color.Blue);
+            AppendText($"UpdatedItemCount: {result.UpdatedItemCount}", Color.Blue);
+            AppendText($"Message: {result.Message}", Color.Blue);
+            AppendText($"RemovedItemCount: {result.RemovedItemCount}", Color.Blue);
+        }
     }
 }
