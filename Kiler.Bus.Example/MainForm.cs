@@ -3,6 +3,7 @@ using Kiler.Bus.Models.EventModels;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -24,9 +25,7 @@ namespace Kiler.Bus.Example
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtPassword.Text)
-                || string.IsNullOrEmpty(txtServerAddress.Text)
-                || string.IsNullOrEmpty(txtUsername.Text) || nudServerPort.Value == 0)
+            if (string.IsNullOrEmpty(txtApiId.Text))
             {
                 MessageBox.Show("Please enter the server information correctly.");
             }
@@ -67,7 +66,7 @@ namespace Kiler.Bus.Example
         {
             try
             {
-                busService = new BusService(GenerateConfig());
+                busService = new BusService(txtCompany.Text, txtApiId.Text);
                 busService.OnConnectionStateChanged += BusService_OnConnectionStateChanged;
                 if (cbEventType.SelectedIndex == 0)
                 {
@@ -85,10 +84,16 @@ namespace Kiler.Bus.Example
             }
         }
 
-        private void BusService_OnNewLog(Models.EventModels.LogContent log)
+        private void BusService_OnNewLog(LogContent log, string tid)
         {
-            AppendText(JsonConvert.SerializeObject(log), Color.DarkGreen);
+            AppendText(tid + JsonConvert.SerializeObject(log), Color.DarkGreen);
         }
+
+        private void Service_OnOrderCreated(OrderContent order, string tid)
+        {
+            AppendText(tid + JsonConvert.SerializeObject(order), Color.DarkGreen);
+        }
+
 
         private void BusService_OnConnectionStateChanged(bool isConnected)
         {
@@ -120,36 +125,17 @@ namespace Kiler.Bus.Example
             }
         }
 
-        private void Service_OnOrderCreated(Models.EventModels.OrderContent order)
-        {
-            AppendText(JsonConvert.SerializeObject(order), Color.DarkGreen);
-        }
 
         private void ToogleAllControlsEnable(bool isEnable)
         {
-            txtPassword.Enabled = isEnable;
-            txtServerAddress.Enabled = isEnable;
-            txtUsername.Enabled = isEnable;
+            txtApiId.Enabled = isEnable;
             cbEventType.Enabled = isEnable;
-            nudServerPort.Enabled = isEnable;
             btnStart.Text = isEnable ? "Start" : "Stop";
-        }
-
-        private ConfigRabbitMq GenerateConfig()
-        {
-            ConfigRabbitMq config = new ConfigRabbitMq();
-            config.HostAddres = txtServerAddress.Text;
-            config.Port = (int)nudServerPort.Value;
-            config.IsUsage = true;
-            config.Password = txtPassword.Text;
-            config.Username = txtUsername.Text;
-            config.Prefix = "akyurt";
-            return config;
         }
 
         private void btnUpdateSingle_Click(object sender, EventArgs e)
         {
-            BusService services = new BusService(GenerateConfig());
+            BusService services = new BusService(txtCompany.Text, txtApiId.Text);
             List<ProductContent> products = new List<ProductContent>();
             products.Add(new ProductContent()
             {
@@ -182,7 +168,7 @@ namespace Kiler.Bus.Example
 
         private void btnDisableAll_Click(object sender, EventArgs e)
         {
-            Bus.BusService services = new BusService(GenerateConfig());
+            Bus.BusService services = new BusService(txtCompany.Text, txtApiId.Text);
             List<ProductContent> products = new List<ProductContent>();
             var result = services.UpdateCatalog(new Models.EventModels.CatalogContent()
             {
@@ -200,7 +186,7 @@ namespace Kiler.Bus.Example
 
         private void btnUpdateAllProduct_Click(object sender, EventArgs e)
         {
-            Bus.BusService services = new BusService(GenerateConfig());
+            Bus.BusService services = new BusService(txtCompany.Text, txtApiId.Text);
             List<ProductContent> products = new List<ProductContent>();
             products.Add(new ProductContent()
             {
@@ -250,7 +236,7 @@ namespace Kiler.Bus.Example
                 QuantityStep = 1,
                 Vat = 12,
             });
-            var result = services.UpdateCatalog(new Models.EventModels.CatalogContent()
+            var result = services.UpdateCatalog(new CatalogContent()
             {
                 FullSync = true,
                 Products = products,
@@ -261,6 +247,14 @@ namespace Kiler.Bus.Example
             AppendText($"UpdatedItemCount: {result.UpdatedItemCount}", Color.Blue);
             AppendText($"Message: {result.Message}", Color.Blue);
             AppendText($"RemovedItemCount: {result.RemovedItemCount}", Color.Blue);
+        }
+
+        private void btnGetCategoryTree_Click(object sender, EventArgs e)
+        {
+            Bus.BusService services = new BusService(txtCompany.Text, txtApiId.Text);
+            List<CategoryContent> tree = services.GetCategoryTree();
+            AppendText($"Total Category Count: {tree.Count}", Color.Blue);
+
         }
     }
 }
