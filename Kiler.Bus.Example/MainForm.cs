@@ -157,7 +157,7 @@ namespace Kiler.Bus.Example
             {
                 FullSync = false,
                 Products = products,
-                RegionId = "800"
+                RegionId = txtErpId.Text
             });
             AppendText($"TotalItem Count: {result.TotalItemCount}", Color.Blue);
             AppendText($"Inserted Count: {result.InsertedItemCount}", Color.Blue);

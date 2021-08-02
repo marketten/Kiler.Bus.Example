@@ -34,15 +34,15 @@ namespace Kiler.Bus.Example
             this.btnStart = new System.Windows.Forms.Button();
             this.cbEventType = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtCompany = new System.Windows.Forms.TextBox();
             this.btnGetCategoryTree = new System.Windows.Forms.Button();
             this.btnUpdateAllProduct = new System.Windows.Forms.Button();
             this.btnDisableAll = new System.Windows.Forms.Button();
             this.btnUpdateSingle = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtErpId = new System.Windows.Forms.TextBox();
             this.txtApiId = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.rtbData = new System.Windows.Forms.RichTextBox();
-            this.txtCompany = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -99,7 +99,7 @@ namespace Kiler.Bus.Example
             this.groupBox1.Controls.Add(this.btnUpdateAllProduct);
             this.groupBox1.Controls.Add(this.btnDisableAll);
             this.groupBox1.Controls.Add(this.btnUpdateSingle);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.txtErpId);
             this.groupBox1.Controls.Add(this.txtApiId);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
@@ -108,6 +108,14 @@ namespace Kiler.Bus.Example
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Server Info";
+            // 
+            // txtCompany
+            // 
+            this.txtCompany.Location = new System.Drawing.Point(169, 37);
+            this.txtCompany.Name = "txtCompany";
+            this.txtCompany.PlaceholderText = "CompanyName";
+            this.txtCompany.Size = new System.Drawing.Size(135, 23);
+            this.txtCompany.TabIndex = 9;
             // 
             // btnGetCategoryTree
             // 
@@ -149,13 +157,13 @@ namespace Kiler.Bus.Example
             this.btnUpdateSingle.UseVisualStyleBackColor = true;
             this.btnUpdateSingle.Click += new System.EventHandler(this.btnUpdateSingle_Click);
             // 
-            // textBox1
+            // txtErpId
             // 
-            this.textBox1.Location = new System.Drawing.Point(7, 66);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.PlaceholderText = "Region Erp Id";
-            this.textBox1.Size = new System.Drawing.Size(155, 23);
-            this.textBox1.TabIndex = 4;
+            this.txtErpId.Location = new System.Drawing.Point(7, 66);
+            this.txtErpId.Name = "txtErpId";
+            this.txtErpId.PlaceholderText = "Region Erp Id";
+            this.txtErpId.Size = new System.Drawing.Size(155, 23);
+            this.txtErpId.TabIndex = 4;
             // 
             // txtApiId
             // 
@@ -182,14 +190,6 @@ namespace Kiler.Bus.Example
             this.rtbData.Size = new System.Drawing.Size(798, 354);
             this.rtbData.TabIndex = 0;
             this.rtbData.Text = "";
-            // 
-            // txtCompany
-            // 
-            this.txtCompany.Location = new System.Drawing.Point(169, 37);
-            this.txtCompany.Name = "txtCompany";
-            this.txtCompany.PlaceholderText = "CompanyName";
-            this.txtCompany.Size = new System.Drawing.Size(135, 23);
-            this.txtCompany.TabIndex = 9;
             // 
             // MainForm
             // 
@@ -224,7 +224,7 @@ namespace Kiler.Bus.Example
         private System.Windows.Forms.Button btnUpdateAllProduct;
         private System.Windows.Forms.Button btnDisableAll;
         private System.Windows.Forms.Button btnUpdateSingle;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtErpId;
         private System.Windows.Forms.Button btnGetCategoryTree;
         private System.Windows.Forms.TextBox txtCompany;
     }
