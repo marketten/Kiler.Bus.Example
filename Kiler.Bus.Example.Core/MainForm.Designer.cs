@@ -113,7 +113,6 @@ namespace Kiler.Bus.Example
             // 
             this.txtCompany.Location = new System.Drawing.Point(6, 35);
             this.txtCompany.Name = "txtCompany";
-            this.txtCompany.PlaceholderText = "CompanyName";
             this.txtCompany.Size = new System.Drawing.Size(156, 23);
             this.txtCompany.TabIndex = 1;
             // 
@@ -161,7 +160,6 @@ namespace Kiler.Bus.Example
             // 
             this.txtErpId.Location = new System.Drawing.Point(7, 66);
             this.txtErpId.Name = "txtErpId";
-            this.txtErpId.PlaceholderText = "Region Erp Id";
             this.txtErpId.Size = new System.Drawing.Size(155, 23);
             this.txtErpId.TabIndex = 4;
             // 
@@ -169,7 +167,6 @@ namespace Kiler.Bus.Example
             // 
             this.txtApiId.Location = new System.Drawing.Point(168, 34);
             this.txtApiId.Name = "txtApiId";
-            this.txtApiId.PlaceholderText = "ApiId";
             this.txtApiId.Size = new System.Drawing.Size(276, 23);
             this.txtApiId.TabIndex = 2;
             // 

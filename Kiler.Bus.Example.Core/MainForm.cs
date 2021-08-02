@@ -16,6 +16,11 @@ namespace Kiler.Bus.Example
         public MainForm()
         {
             InitializeComponent();
+#if NETCOREAPP
+            this.txtErpId.PlaceholderText = "Region Erp Id";
+            this.txtCompany.PlaceholderText = "CompanyName";
+            this.txtApiId.PlaceholderText = "ApiId";
+#endif
         }
 
         private void Form1_Load(object sender, EventArgs e)
