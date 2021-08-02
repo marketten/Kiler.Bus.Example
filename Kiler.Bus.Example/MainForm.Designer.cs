@@ -76,7 +76,7 @@ namespace Kiler.Bus.Example
             this.btnStart.Location = new System.Drawing.Point(72, 66);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(111, 23);
-            this.btnStart.TabIndex = 1;
+            this.btnStart.TabIndex = 9;
             this.btnStart.Text = "Start";
             this.btnStart.UseVisualStyleBackColor = true;
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
@@ -90,7 +90,7 @@ namespace Kiler.Bus.Example
             this.cbEventType.Location = new System.Drawing.Point(6, 36);
             this.cbEventType.Name = "cbEventType";
             this.cbEventType.Size = new System.Drawing.Size(177, 23);
-            this.cbEventType.TabIndex = 0;
+            this.cbEventType.TabIndex = 8;
             // 
             // groupBox1
             // 
@@ -111,18 +111,18 @@ namespace Kiler.Bus.Example
             // 
             // txtCompany
             // 
-            this.txtCompany.Location = new System.Drawing.Point(169, 37);
+            this.txtCompany.Location = new System.Drawing.Point(6, 35);
             this.txtCompany.Name = "txtCompany";
             this.txtCompany.PlaceholderText = "CompanyName";
-            this.txtCompany.Size = new System.Drawing.Size(135, 23);
-            this.txtCompany.TabIndex = 9;
+            this.txtCompany.Size = new System.Drawing.Size(156, 23);
+            this.txtCompany.TabIndex = 1;
             // 
             // btnGetCategoryTree
             // 
-            this.btnGetCategoryTree.Location = new System.Drawing.Point(310, 35);
+            this.btnGetCategoryTree.Location = new System.Drawing.Point(451, 34);
             this.btnGetCategoryTree.Name = "btnGetCategoryTree";
             this.btnGetCategoryTree.Size = new System.Drawing.Size(134, 23);
-            this.btnGetCategoryTree.TabIndex = 8;
+            this.btnGetCategoryTree.TabIndex = 3;
             this.btnGetCategoryTree.Text = "Get Category Tree";
             this.btnGetCategoryTree.UseVisualStyleBackColor = true;
             this.btnGetCategoryTree.Click += new System.EventHandler(this.btnGetCategoryTree_Click);
@@ -167,11 +167,11 @@ namespace Kiler.Bus.Example
             // 
             // txtApiId
             // 
-            this.txtApiId.Location = new System.Drawing.Point(7, 37);
+            this.txtApiId.Location = new System.Drawing.Point(168, 34);
             this.txtApiId.Name = "txtApiId";
             this.txtApiId.PlaceholderText = "ApiId";
-            this.txtApiId.Size = new System.Drawing.Size(155, 23);
-            this.txtApiId.TabIndex = 0;
+            this.txtApiId.Size = new System.Drawing.Size(276, 23);
+            this.txtApiId.TabIndex = 2;
             // 
             // panel2
             // 
