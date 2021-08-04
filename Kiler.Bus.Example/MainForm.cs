@@ -12,10 +12,12 @@ namespace Kiler.Bus.Example
     public partial class MainForm : Form
     {
         BusService busService;
-        private bool isStarting = false;
+        private bool isListening = false;
+
         public MainForm()
         {
             InitializeComponent();
+            ToogleAllControlsEnable(isListening);
 #if NETCOREAPP
             this.txtErpId.PlaceholderText = "Region Erp Id";
             this.txtCompany.PlaceholderText = "CompanyName";
@@ -46,17 +48,19 @@ namespace Kiler.Bus.Example
 
         private void StartOrStop()
         {
-            isStarting = !isStarting;
-            ToogleAllControlsEnable(!isStarting);
-            if (isStarting)
+            isListening = !isListening;
+            ToogleAllControlsEnable(!isListening);
+            if (isListening)
             {
                 AppendText("Connecting...", Color.Black);
                 StartEvent();
+                btnStart.Text = "Stop";
             }
             else
             {
                 AppendText("Stopping...", Color.Black);
                 StopEvent();
+                btnStart.Text = "Start";
             }
 
         }
@@ -71,7 +75,6 @@ namespace Kiler.Bus.Example
         {
             try
             {
-                busService = new BusService(txtCompany.Text, txtApiId.Text);
                 busService.OnConnectionStateChanged += BusService_OnConnectionStateChanged;
                 if (cbEventType.SelectedIndex == 0)
                 {
@@ -133,14 +136,17 @@ namespace Kiler.Bus.Example
 
         private void ToogleAllControlsEnable(bool isEnable)
         {
-            txtApiId.Enabled = isEnable;
+            txtErpId.Enabled = isEnable;
             cbEventType.Enabled = isEnable;
-            btnStart.Text = isEnable ? "Start" : "Stop";
+            btnDisableAll.Enabled = isEnable;
+            btnGetCategoryTree.Enabled = isEnable;
+            btnUpdateAllProduct.Enabled = isEnable;
+            btnUpdateSingle.Enabled = isEnable;
+            btnStart.Enabled = isEnable;
         }
 
         private void btnUpdateSingle_Click(object sender, EventArgs e)
         {
-            BusService services = new BusService(txtCompany.Text, txtApiId.Text);
             List<ProductContent> products = new List<ProductContent>();
             products.Add(new ProductContent()
             {
@@ -158,7 +164,7 @@ namespace Kiler.Bus.Example
                 QuantityStep = 1,
                 Vat = 12,
             });
-            var result = services.UpdateCatalog(new Models.EventModels.CatalogContent()
+            var result = busService.UpdateCatalog(new Models.EventModels.CatalogContent()
             {
                 FullSync = false,
                 Products = products,
@@ -173,9 +179,8 @@ namespace Kiler.Bus.Example
 
         private void btnDisableAll_Click(object sender, EventArgs e)
         {
-            Bus.BusService services = new BusService(txtCompany.Text, txtApiId.Text);
             List<ProductContent> products = new List<ProductContent>();
-            var result = services.UpdateCatalog(new Models.EventModels.CatalogContent()
+            var result = busService.UpdateCatalog(new Models.EventModels.CatalogContent()
             {
                 FullSync = true,
                 Products = products,
@@ -191,7 +196,6 @@ namespace Kiler.Bus.Example
 
         private void btnUpdateAllProduct_Click(object sender, EventArgs e)
         {
-            Bus.BusService services = new BusService(txtCompany.Text, txtApiId.Text);
             List<ProductContent> products = new List<ProductContent>();
             products.Add(new ProductContent()
             {
@@ -241,7 +245,7 @@ namespace Kiler.Bus.Example
                 QuantityStep = 1,
                 Vat = 12,
             });
-            var result = services.UpdateCatalog(new CatalogContent()
+            var result = busService.UpdateCatalog(new CatalogContent()
             {
                 FullSync = true,
                 Products = products,
@@ -256,9 +260,15 @@ namespace Kiler.Bus.Example
 
         private void btnGetCategoryTree_Click(object sender, EventArgs e)
         {
-            Bus.BusService services = new BusService(txtCompany.Text, txtApiId.Text);
-            List<CategoryContent> tree = services.GetCategoryTree();
+            List<CategoryContent> tree = busService.GetCategoryTree();
             AppendText($"Total Category Count: {tree.Count}", Color.Blue);
+
+        }
+
+        private void btnConnect_Click(object sender, EventArgs e)
+        {
+            ToogleAllControlsEnable(isListening);
+            busService = new BusService(txtCompany.Text, txtApiId.Text);
 
         }
     }

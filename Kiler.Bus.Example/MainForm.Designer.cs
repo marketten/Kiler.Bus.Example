@@ -34,6 +34,7 @@ namespace Kiler.Bus.Example
             this.btnStart = new System.Windows.Forms.Button();
             this.cbEventType = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnConnect = new System.Windows.Forms.Button();
             this.txtCompany = new System.Windows.Forms.TextBox();
             this.btnGetCategoryTree = new System.Windows.Forms.Button();
             this.btnUpdateAllProduct = new System.Windows.Forms.Button();
@@ -73,9 +74,9 @@ namespace Kiler.Bus.Example
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(72, 66);
+            this.btnStart.Location = new System.Drawing.Point(6, 66);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(111, 23);
+            this.btnStart.Size = new System.Drawing.Size(177, 23);
             this.btnStart.TabIndex = 9;
             this.btnStart.Text = "Start";
             this.btnStart.UseVisualStyleBackColor = true;
@@ -94,6 +95,7 @@ namespace Kiler.Bus.Example
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnConnect);
             this.groupBox1.Controls.Add(this.txtCompany);
             this.groupBox1.Controls.Add(this.btnGetCategoryTree);
             this.groupBox1.Controls.Add(this.btnUpdateAllProduct);
@@ -109,6 +111,16 @@ namespace Kiler.Bus.Example
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Server Info";
             // 
+            // btnConnect
+            // 
+            this.btnConnect.Location = new System.Drawing.Point(459, 34);
+            this.btnConnect.Name = "btnConnect";
+            this.btnConnect.Size = new System.Drawing.Size(132, 23);
+            this.btnConnect.TabIndex = 8;
+            this.btnConnect.Text = "Connect";
+            this.btnConnect.UseVisualStyleBackColor = true;
+            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
+            // 
             // txtCompany
             // 
             this.txtCompany.Location = new System.Drawing.Point(6, 35);
@@ -118,7 +130,7 @@ namespace Kiler.Bus.Example
             // 
             // btnGetCategoryTree
             // 
-            this.btnGetCategoryTree.Location = new System.Drawing.Point(451, 34);
+            this.btnGetCategoryTree.Location = new System.Drawing.Point(459, 65);
             this.btnGetCategoryTree.Name = "btnGetCategoryTree";
             this.btnGetCategoryTree.Size = new System.Drawing.Size(134, 23);
             this.btnGetCategoryTree.TabIndex = 3;
@@ -128,9 +140,9 @@ namespace Kiler.Bus.Example
             // 
             // btnUpdateAllProduct
             // 
-            this.btnUpdateAllProduct.Location = new System.Drawing.Point(450, 65);
+            this.btnUpdateAllProduct.Location = new System.Drawing.Point(332, 67);
             this.btnUpdateAllProduct.Name = "btnUpdateAllProduct";
-            this.btnUpdateAllProduct.Size = new System.Drawing.Size(135, 23);
+            this.btnUpdateAllProduct.Size = new System.Drawing.Size(121, 23);
             this.btnUpdateAllProduct.TabIndex = 7;
             this.btnUpdateAllProduct.Text = "Update All Product";
             this.btnUpdateAllProduct.UseVisualStyleBackColor = true;
@@ -138,9 +150,9 @@ namespace Kiler.Bus.Example
             // 
             // btnDisableAll
             // 
-            this.btnDisableAll.Location = new System.Drawing.Point(309, 65);
+            this.btnDisableAll.Location = new System.Drawing.Point(210, 67);
             this.btnDisableAll.Name = "btnDisableAll";
-            this.btnDisableAll.Size = new System.Drawing.Size(135, 23);
+            this.btnDisableAll.Size = new System.Drawing.Size(116, 23);
             this.btnDisableAll.TabIndex = 6;
             this.btnDisableAll.Text = "Disable All Product";
             this.btnDisableAll.UseVisualStyleBackColor = true;
@@ -148,7 +160,7 @@ namespace Kiler.Bus.Example
             // 
             // btnUpdateSingle
             // 
-            this.btnUpdateSingle.Location = new System.Drawing.Point(168, 66);
+            this.btnUpdateSingle.Location = new System.Drawing.Point(69, 67);
             this.btnUpdateSingle.Name = "btnUpdateSingle";
             this.btnUpdateSingle.Size = new System.Drawing.Size(135, 23);
             this.btnUpdateSingle.TabIndex = 5;
@@ -160,7 +172,7 @@ namespace Kiler.Bus.Example
             // 
             this.txtErpId.Location = new System.Drawing.Point(7, 66);
             this.txtErpId.Name = "txtErpId";
-            this.txtErpId.Size = new System.Drawing.Size(155, 23);
+            this.txtErpId.Size = new System.Drawing.Size(56, 23);
             this.txtErpId.TabIndex = 4;
             // 
             // txtApiId
@@ -224,6 +236,7 @@ namespace Kiler.Bus.Example
         private System.Windows.Forms.TextBox txtErpId;
         private System.Windows.Forms.Button btnGetCategoryTree;
         private System.Windows.Forms.TextBox txtCompany;
+        private System.Windows.Forms.Button btnConnect;
     }
 }
 
