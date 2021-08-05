@@ -68,6 +68,7 @@ namespace Kiler.Bus.Example
         private void StopEvent()
         {
             busService.OnOrderCreated -= Service_OnOrderCreated;
+
             busService.Dispose();
         }
 
@@ -76,6 +77,7 @@ namespace Kiler.Bus.Example
             try
             {
                 busService.OnConnectionStateChanged += BusService_OnConnectionStateChanged;
+
                 if (cbEventType.SelectedIndex == 0)
                 {
                     busService.OnOrderCreated += Service_OnOrderCreated;
@@ -108,32 +110,6 @@ namespace Kiler.Bus.Example
             AppendText(isConnected ? "Connected" : "Disconnected", Color.Green);
         }
 
-        public void AppendText(string text, Color color)
-        {
-            if (rtbData.InvokeRequired)
-            {
-                rtbData.Invoke(new Action(() =>
-                {
-                    rtbData.SelectionStart = rtbData.TextLength;
-                    rtbData.SelectionLength = 0;
-
-                    rtbData.SelectionColor = color;
-                    rtbData.AppendText(text + Environment.NewLine);
-                    rtbData.SelectionColor = rtbData.ForeColor;
-                }));
-            }
-            else
-            {
-                rtbData.SelectionStart = rtbData.TextLength;
-                rtbData.SelectionLength = 0;
-
-                rtbData.SelectionColor = color;
-                rtbData.AppendText(text + Environment.NewLine);
-                rtbData.SelectionColor = rtbData.ForeColor;
-            }
-        }
-
-
         private void ToogleAllControlsEnable(bool isEnable)
         {
             txtErpId.Enabled = isEnable;
@@ -161,15 +137,18 @@ namespace Kiler.Bus.Example
                 Name = "Test Product",
                 Price = 1.3m,
                 ProductUnit = 0,
-                QuantityStep = 1,
-                Vat = 12,
+                QuantityStep = 1m,
+                Vat = 12m,
             });
-            var result = busService.UpdateCatalog(new Models.EventModels.CatalogContent()
+
+            CatalogContent catalog = new CatalogContent()
             {
-                FullSync = false,
+                FullSync = false, // Full sync false means update only products sent
                 Products = products,
                 RegionId = txtErpId.Text
-            });
+            };
+
+            var result = busService.UpdateCatalog(catalog);
             AppendText($"TotalItem Count: {result.TotalItemCount}", Color.Blue);
             AppendText($"Inserted Count: {result.InsertedItemCount}", Color.Blue);
             AppendText($"UpdatedItemCount: {result.UpdatedItemCount}", Color.Blue);
@@ -179,13 +158,16 @@ namespace Kiler.Bus.Example
 
         private void btnDisableAll_Click(object sender, EventArgs e)
         {
-            List<ProductContent> products = new List<ProductContent>();
-            var result = busService.UpdateCatalog(new Models.EventModels.CatalogContent()
+            List<ProductContent> products = new List<ProductContent>(); // create an empty product list
+
+            CatalogContent catalog = new CatalogContent()
             {
-                FullSync = true,
-                Products = products,
+                FullSync = true, // Full sync true means make online catalog as same with products list. Since products is empty all online products will be disabled
+                Products = products, // set catalog as empty product list
                 RegionId = txtErpId.Text
-            });
+            };
+
+            var result = busService.UpdateCatalog(catalog);
 
             AppendText($"TotalItem Count: {result.TotalItemCount}", Color.Blue);
             AppendText($"Inserted Count: {result.InsertedItemCount}", Color.Blue);
@@ -245,12 +227,14 @@ namespace Kiler.Bus.Example
                 QuantityStep = 1,
                 Vat = 12,
             });
-            var result = busService.UpdateCatalog(new CatalogContent()
+
+            CatalogContent catalog = new CatalogContent()
             {
                 FullSync = true,
                 Products = products,
                 RegionId = txtErpId.Text
-            });
+            };
+            var result = busService.UpdateCatalog(catalog);
             AppendText($"TotalItem Count: {result.TotalItemCount}", Color.Blue);
             AppendText($"Inserted Count: {result.InsertedItemCount}", Color.Blue);
             AppendText($"UpdatedItemCount: {result.UpdatedItemCount}", Color.Blue);
@@ -260,16 +244,41 @@ namespace Kiler.Bus.Example
 
         private void btnGetCategoryTree_Click(object sender, EventArgs e)
         {
-            List<CategoryContent> tree = busService.GetCategoryTree();
-            AppendText($"Total Category Count: {tree.Count}", Color.Blue);
+            List<CategoryContent> categories = busService.GetCategoryTree();
+            AppendText($"Total Category Count: {categories.Count}", Color.Blue);
 
         }
 
         private void btnConnect_Click(object sender, EventArgs e)
         {
-            ToogleAllControlsEnable(isListening);
+            ToogleAllControlsEnable(true);
             busService = new BusService(txtCompany.Text, txtApiId.Text);
 
+        }
+
+        public void AppendText(string text, Color color)
+        {
+            if (rtbData.InvokeRequired)
+            {
+                rtbData.Invoke(new Action(() =>
+                {
+                    rtbData.SelectionStart = rtbData.TextLength;
+                    rtbData.SelectionLength = 0;
+
+                    rtbData.SelectionColor = color;
+                    rtbData.AppendText(text + Environment.NewLine);
+                    rtbData.SelectionColor = rtbData.ForeColor;
+                }));
+            }
+            else
+            {
+                rtbData.SelectionStart = rtbData.TextLength;
+                rtbData.SelectionLength = 0;
+
+                rtbData.SelectionColor = color;
+                rtbData.AppendText(text + Environment.NewLine);
+                rtbData.SelectionColor = rtbData.ForeColor;
+            }
         }
     }
 }
