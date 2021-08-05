@@ -108,6 +108,7 @@ namespace Kiler.Bus.Example
         private void BusService_OnConnectionStateChanged(bool isConnected)
         {
             AppendText(isConnected ? "Connected" : "Disconnected", Color.Green);
+            btnStart.Enabled = isConnected;
         }
 
         private void ToogleAllControlsEnable(bool isEnable)
